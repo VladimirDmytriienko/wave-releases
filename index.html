@@ -362,15 +362,16 @@ p { margin: 0 0 14px; max-width: var(--measure); }
 }
 
 .flag {
+  display: block;
   border-left: 2px solid var(--amber);
   background: linear-gradient(90deg, var(--amber-glow), transparent 70%);
-  padding: 14px 18px;
+  padding: 13px 16px;
   border-radius: 0 8px 8px 0;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
-.flag p { margin: 0; font-size: 15px; color: var(--ink-mid); }
-.flag p strong { color: var(--ink); font-weight: 500; }
+.flag .flag-text { display: block; font-size: 15px; line-height: 1.55; color: var(--ink-mid); }
+.flag .flag-text strong { color: var(--ink); font-weight: 500; }
 
 /* ── Spec table ───────────────────────────────────────────── */
 .spec-scroll { overflow-x: auto; }
@@ -539,26 +540,21 @@ footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
       <li>
         <span class="n">02</span>
         <span class="body">
-          <b>The first launch is blocked. Click <span class="kbd">Done</span> &mdash; never &ldquo;Move to Trash&rdquo;.</b>
+          <b>The first launch is blocked. Press <span class="kbd">Done</span> &mdash; never &ldquo;Move to Trash&rdquo;.</b>
           <span class="note">
-            macOS says it &ldquo;could not verify wave is free of malware&rdquo;. That message
-            appears for every app not signed with a paid Apple certificate,
-            whatever the app actually does. Nothing is wrong with the download.
+            macOS says it &ldquo;could not verify wave is free of malware&rdquo;. Every app
+            without a paid Apple certificate gets that message. Your download is fine.
           </span>
           <span class="note">
-            Then open <span class="kbd">System Settings</span> &rarr;
-            <span class="kbd">Privacy &amp; Security</span>, scroll down to
-            <b>Security</b>, and click <span class="kbd">Open Anyway</span> next
-            to wave. Confirm with Touch ID or your password, then click
-            <span class="kbd">Open Anyway</span> once more in the dialog that follows.
+            Then approve it once: <span class="kbd">System Settings</span> &rarr;
+            <span class="kbd">Privacy &amp; Security</span> &rarr; scroll to
+            <b>Security</b> &rarr; <span class="kbd">Open Anyway</span> &rarr; confirm
+            with Touch ID &rarr; <span class="kbd">Open Anyway</span> again.
           </span>
           <span class="flag">
-            <p>
-              <strong>Once only.</strong> After that first approval wave opens with a
-              normal double-click, like any other app. On macOS 14 and older there
-              is a shortcut: right-click the app and choose Open. Apple removed
-              that route in macOS 15, so newer systems have to go through Settings.
-            </p>
+            <span class="flag-text">
+              <strong>Once only.</strong> From then on wave opens with a normal double-click.
+            </span>
           </span>
         </span>
       </li>
