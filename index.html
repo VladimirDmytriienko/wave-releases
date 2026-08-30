@@ -235,6 +235,39 @@ body {
   user-select: all;
 }
 
+/* ── Heads-up next to the download ────────────────────────── */
+.heads-up {
+  margin-top: 6px;
+  border: 1px solid var(--amber-deep);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--amber-glow), transparent);
+  padding: 15px 18px;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.heads-up .icon {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--amber);
+  line-height: 1.55;
+}
+
+.heads-up p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-mid); max-width: none; }
+.heads-up strong { color: var(--ink); font-weight: 500; }
+
+.heads-up a {
+  color: var(--amber);
+  text-decoration: none;
+  border-bottom: 1px solid var(--amber-deep);
+  white-space: nowrap;
+}
+
+.heads-up a:hover { color: #f3ca86; }
+.heads-up a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
 /* ── Generic section ──────────────────────────────────────── */
 section { padding: 56px 0 0; }
 
@@ -440,6 +473,16 @@ footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
         <span class="btn-size">102 MB</span>
       </a>
 
+      <div class="heads-up">
+        <span class="icon">!</span>
+        <p>
+          <strong>macOS blocks the first launch.</strong> You will be shown a
+          warning whose only buttons are &ldquo;Move to Trash&rdquo; and
+          &ldquo;Done&rdquo; &mdash; press <strong>Done</strong>, then approve the
+          app once in System Settings. <a href="#first-launch">How to do it &darr;</a>
+        </p>
+      </div>
+
       <p class="fallback">
         Download not starting? Copy the link by hand:<br>
         <code>github.com/VladimirDmytriienko/wave-releases/releases/latest</code>
@@ -481,7 +524,7 @@ footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
     </ul>
   </section>
 
-  <section>
+  <section id="first-launch">
     <p class="eyebrow">First launch</p>
     <h2>Four steps, one of them Apple makes awkward</h2>
 
