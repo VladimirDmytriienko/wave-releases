@@ -1,0 +1,733 @@
+<title>wave for Mac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   wave — download page.
+
+   Deliberately single-theme. wave is a dark application: #08090a is
+   literally the backgroundColor of its BrowserWindow, and the amber is
+   its default accent. The page commits to that one world rather than
+   inventing a light counterpart, so every colour below is painted
+   explicitly from a token and the page holds on any host ground.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --ground:      #08090a;
+  --ground-lift: #0d0e11;
+  --surface:     #111214;
+  --surface-hi:  #16181c;
+  --line:        #232428;
+  --line-soft:   #191a1e;
+
+  --ink:         #f2f0ec;   /* warm off-white, not pure #fff */
+  --ink-mid:     #a7a094;
+  --ink-dim:     #7d776c;   /* grey biased toward the amber */
+
+  --amber:       #e8b96c;
+  --amber-deep:  #c99a4d;
+  --amber-glow:  rgba(232, 185, 108, 0.13);
+  --mint:        #5ee6b4;
+
+  --sans: "Geist", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 60ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+  padding: 84px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 46px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.brand .ver {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  letter-spacing: 0.02em;
+}
+
+.thesis {
+  margin: 0;
+  max-width: var(--measure);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.thesis em {
+  font-style: normal;
+  color: var(--amber);
+}
+
+/* ── Waveform demo ────────────────────────────────────────── */
+.demo {
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 140% at 62% 0%, var(--amber-glow), transparent 62%),
+    var(--ground-lift);
+  overflow: hidden;
+}
+
+.demo-scope {
+  display: block;
+  width: 100%;
+  height: 132px;
+}
+
+.demo-caption {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px 18px 15px;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-ts {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber-deep);
+  flex: none;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-line {
+  font-size: 15.5px;
+  line-height: 1.45;
+  color: var(--ink-mid);
+  margin: 0;
+}
+
+.demo-line .caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--amber);
+  vertical-align: -0.15em;
+  margin-left: 2px;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* ── Download ─────────────────────────────────────────────── */
+.get {
+  padding: 34px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 17px 22px;
+  border: 1px solid transparent;
+  transition: transform 0.14s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.btn-main {
+  background: var(--amber);
+  color: #17130a;
+}
+
+.btn-main:hover { background: #f0c47b; transform: translateY(-1px); }
+
+.btn-alt {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.btn-alt:hover { background: var(--surface-hi); border-color: #2e3036; transform: translateY(-1px); }
+
+.btn-label { display: flex; flex-direction: column; gap: 2px; }
+
+.btn-title { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; }
+
+.btn-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  opacity: 0.72;
+}
+
+.btn-main .btn-sub { color: #4a3a17; opacity: 1; }
+.btn-alt  .btn-sub { color: var(--ink-dim); opacity: 1; }
+
+.btn-size {
+  font-family: var(--mono);
+  font-size: 13px;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-main .btn-size { color: #4a3a17; }
+.btn-alt  .btn-size { color: var(--ink-dim); }
+
+.fallback {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+.fallback code {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mid);
+  word-break: break-all;
+  user-select: all;
+}
+
+/* ── Generic section ──────────────────────────────────────── */
+section { padding: 56px 0 0; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 18px;
+}
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 14px; max-width: var(--measure); }
+
+.lede { color: var(--ink-mid); }
+
+/* ── Claims ───────────────────────────────────────────────── */
+.claims {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.claims li {
+  background: var(--ground-lift);
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.claims .mark {
+  flex: none;
+  color: var(--mint);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.claims strong { font-weight: 500; color: var(--ink); }
+.claims span.detail { color: var(--ink-dim); font-size: 15px; display: block; margin-top: 2px; }
+
+/* ── Steps: a real sequence, so the numbers carry meaning ── */
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+
+.steps li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.steps li:last-child { border-bottom: 0; }
+
+.steps .n {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+  padding-top: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps .body { max-width: var(--measure); }
+.steps .body b { font-weight: 500; }
+.steps .body .note { display: block; margin-top: 5px; color: var(--ink-dim); font-size: 15px; line-height: 1.55; }
+
+.kbd {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--surface-hi);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 6px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.flag {
+  border-left: 2px solid var(--amber);
+  background: linear-gradient(90deg, var(--amber-glow), transparent 70%);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 10px;
+}
+
+.flag p { margin: 0; font-size: 15px; color: var(--ink-mid); }
+.flag p strong { color: var(--ink); font-weight: 500; }
+
+/* ── Spec table ───────────────────────────────────────────── */
+.spec-scroll { overflow-x: auto; }
+
+table.spec {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 460px;
+}
+
+table.spec th, table.spec td {
+  text-align: left;
+  padding: 11px 14px 11px 0;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+
+table.spec th {
+  font-weight: 400;
+  color: var(--ink-dim);
+  width: 172px;
+  font-size: 13px;
+}
+
+table.spec td { color: var(--ink-mid); }
+table.spec td .m { font-family: var(--mono); font-size: 12.5px; word-break: break-all; user-select: all; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+  margin-top: 64px;
+  padding: 26px 0 60px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: baseline;
+  font-size: 14px;
+  color: var(--ink-dim);
+}
+
+footer a { color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--line); }
+footer a:hover { color: var(--amber); border-bottom-color: var(--amber-deep); }
+footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-top: 56px; }
+  .brand h1 { font-size: 38px; }
+  .thesis { font-size: 19px; }
+  .btn { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .btn-size { align-self: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">
+      <h1>wave</h1>
+      <span class="ver">1.5.0</span>
+    </div>
+
+    <p class="thesis">
+      Транскрипція для Мака, яка працює <em>повністю на твоєму комп'ютері</em>.
+      Запис, відео чи готовий файл — на виході текст. У мережу не йде нічого.
+    </p>
+
+    <div class="demo">
+      <canvas class="demo-scope" id="scope" aria-hidden="true"></canvas>
+      <div class="demo-caption">
+        <span class="demo-ts" id="ts">00:00</span>
+        <p class="demo-line" id="line"><span class="caret"></span></p>
+      </div>
+    </div>
+
+    <div class="get">
+      <a class="btn btn-main" id="dl-universal"
+         href="https://github.com/VladimirDmytriienko/wave-releases/releases/download/v1.5.0/wave-1.5.0-universal.dmg"
+         target="_blank" rel="noopener">
+        <span class="btn-label">
+          <span class="btn-title">Завантажити для Мака</span>
+          <span class="btn-sub">будь-який Mac · Apple Silicon + Intel</span>
+        </span>
+        <span class="btn-size">185 MB</span>
+      </a>
+
+      <a class="btn btn-alt"
+         href="https://github.com/VladimirDmytriienko/wave-releases/releases/download/v1.5.0/wave-1.5.0-arm64.dmg"
+         target="_blank" rel="noopener">
+        <span class="btn-label">
+          <span class="btn-title">Тільки Apple Silicon</span>
+          <span class="btn-sub">M1 / M2 / M3 / M4 · удвічі легший</span>
+        </span>
+        <span class="btn-size">102 MB</span>
+      </a>
+
+      <p class="fallback">
+        Не качається? Скопіюй посилання вручну:<br>
+        <code>github.com/VladimirDmytriienko/wave-releases/releases/latest</code>
+      </p>
+    </div>
+  </header>
+
+  <section>
+    <p class="eyebrow">Що потрібно</p>
+    <h2>Нічого встановлювати окремо не треба</h2>
+    <p class="lede">
+      Раніше застосунок вимагав доставити ffmpeg через термінал. Більше ні —
+      звук розкодовується вбудованими засобами macOS.
+    </p>
+
+    <ul class="claims">
+      <li>
+        <span class="mark">✓</span>
+        <span>
+          <strong>Без термінала й Homebrew</strong>
+          <span class="detail">Достатньо перетягнути застосунок у Applications.</span>
+        </span>
+      </li>
+      <li>
+        <span class="mark">✓</span>
+        <span>
+          <strong>Без акаунтів і підписок</strong>
+          <span class="detail">Реєстрації немає, застосунок безкоштовний.</span>
+        </span>
+      </li>
+      <li>
+        <span class="mark">✓</span>
+        <span>
+          <strong>Без інтернету після налаштування</strong>
+          <span class="detail">Один раз завантажується мовна модель — далі все рахується офлайн.</span>
+        </span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="eyebrow">Перший запуск</p>
+    <h2>Чотири кроки, один із них неочевидний</h2>
+
+    <ol class="steps">
+      <li>
+        <span class="n">01</span>
+        <span class="body">
+          <b>Відкрий завантажений файл і перетягни wave у Applications.</b>
+          <span class="note">Звичайне вікно з іконкою та стрілкою — просто перетягни.</span>
+        </span>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <span class="body">
+          <b>Натисни на wave правою кнопкою → <span class="kbd">Open</span> → ще раз <span class="kbd">Open</span>.</b>
+          <span class="note">
+            Саме правою кнопкою, не подвійним кліком. Подвійний клік покаже
+            попередження без кнопки «відкрити», і здасться, що застосунок зламаний.
+          </span>
+          <span class="flag">
+            <p>
+              <strong>macOS скаже, що розробник невідомий — це нормально.</strong>
+              Застосунок не має платного сертифіката Apple, тому система
+              перестраховується. Через правий клік з'явиться кнопка Open. Один раз,
+              далі запускатиметься звичайно.
+            </p>
+          </span>
+        </span>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <span class="body">
+          <b>Зайди в <span class="kbd">Settings</span> → <span class="kbd">Models</span> і завантаж модель.</b>
+          <span class="note">
+            Turbo — найкращий баланс, 575 МБ. Якщо інтернет повільний, візьми
+            Tiny на 31 МБ, щоб спробувати. Прогрес видно у вікні.
+          </span>
+        </span>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <span class="body">
+          <b>Записуй або перетягни файл — і тисни транскрибувати.</b>
+          <span class="note">
+            Далі інтернет не потрібен. Дозволи на мікрофон і запис екрана система
+            попросить сама, коли вони знадобляться.
+          </span>
+        </span>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Що всередині</p>
+    <h2>Whisper, який рахує на твоєму залізі</h2>
+    <p class="lede">
+      Розпізнавання виконує whisper.cpp — той самий Whisper від OpenAI,
+      переписаний під локальний запуск. На Apple Silicon працює через Metal,
+      на Intel — на процесорі, помітно повільніше.
+    </p>
+    <p class="lede">
+      Розуміє українську, англійську, російську та ще майже сто мов. Вміє
+      розставляти мітки часу, розділяти співрозмовників і експортувати в
+      TXT, Markdown, SRT або JSON.
+    </p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Технічне</p>
+    <h2>Характеристики</h2>
+    <div class="spec-scroll">
+      <table class="spec">
+        <tbody>
+          <tr>
+            <th>Система</th>
+            <td>macOS 10.15 або новіша</td>
+          </tr>
+          <tr>
+            <th>Процесор</th>
+            <td>Apple Silicon (M1–M4) або Intel — universal-збірка покриває обидва</td>
+          </tr>
+          <tr>
+            <th>Місце на диску</th>
+            <td>близько 300 МБ разом із моделлю Turbo</td>
+          </tr>
+          <tr>
+            <th>Ліцензія</th>
+            <td>MIT</td>
+          </tr>
+          <tr>
+            <th>SHA-256 universal</th>
+            <td><span class="m">463dee53283689562b98c958fe3a43a6b768c4b9dc3c3294ed2339d31da94283</span></td>
+          </tr>
+          <tr>
+            <th>SHA-256 arm64</th>
+            <td><span class="m">e167d2722d3c6fe970d7c57a4b94738db7c30bfd6802940b90d6852c1fb68ef5</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>MIT © 2026 Volodymyr Dmytriienko</span>
+    <a href="https://github.com/VladimirDmytriienko/wave-releases/releases/latest" target="_blank" rel="noopener">Усі релізи та попередні версії</a>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var canvas  = document.getElementById('scope');
+  var lineEl  = document.getElementById('line');
+  var tsEl    = document.getElementById('ts');
+  if (!canvas || !lineEl || !tsEl) return;
+
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  var css = getComputedStyle(document.documentElement);
+  var AMBER = (css.getPropertyValue('--amber') || '#e8b96c').trim();
+  var DIM   = (css.getPropertyValue('--ink-dim') || '#7d776c').trim();
+
+  // The line the demo "transcribes" — the product's own claim, in a language
+  // it actually supports.
+  var TEXT = 'Усе рахується на твоєму Маку. Нічого не йде в мережу.';
+
+  var BAR = 3, GAP = 2, STEP = BAR + GAP;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var w = 0, h = 0, cols = 0;
+
+  // Speech-shaped envelope: bursts of syllables separated by short pauses,
+  // rather than uniform noise, so the trace reads as a voice.
+  function amp(i) {
+    var word  = Math.sin(i * 0.045) * 0.5 + 0.5;          // slow word rhythm
+    var pause = word < 0.18 ? 0.06 : 1;                    // gaps between words
+    var syl   = Math.sin(i * 0.42) * 0.35 + 0.65;          // syllable pulse
+    var grain = Math.sin(i * 1.7) * Math.cos(i * 0.9) * 0.22 + 0.78;
+    return Math.max(0.04, word * pause * syl * grain);
+  }
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var rect = canvas.getBoundingClientRect();
+    w = Math.max(1, Math.floor(rect.width));
+    h = Math.max(1, Math.floor(rect.height));
+    canvas.width  = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(w / STEP) + 2;
+  }
+
+  var offset = 0;
+  var PLAYHEAD = 0.62;
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    var mid = h / 2;
+    var px = w * PLAYHEAD;
+
+    for (var c = 0; c < cols; c++) {
+      var x = c * STEP;
+      var i = c + offset;
+      var a = amp(i);
+      var tall = a * (h * 0.40);
+
+      // Bars behind the playhead are "already transcribed" — amber, brightest
+      // right at the head; ahead of it they are still unheard, so they stay grey.
+      var col, alpha;
+      if (x <= px) {
+        var near = 1 - Math.min(1, (px - x) / (w * 0.5));
+        col = AMBER;
+        alpha = 0.22 + near * 0.68;
+      } else {
+        col = DIM;
+        alpha = 0.20;
+      }
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = col;
+      ctx.fillRect(x, mid - tall, BAR, tall * 2);
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = AMBER;
+    ctx.fillRect(Math.round(px), 8, 1, h - 16);
+  }
+
+  // Type the caption in step with the scroll.
+  var chars = 0;
+  var caret = '<span class="caret"></span>';
+
+  function setLine(n) {
+    var slice = TEXT.slice(0, n);
+    lineEl.innerHTML = slice.replace(/&/g, '&amp;').replace(/</g, '&lt;') + caret;
+  }
+
+  function setTime(sec) {
+    var m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+    tsEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  resize();
+
+  if (reduced) {
+    // Static trace, full sentence, no motion.
+    offset = 40;
+    draw();
+    setLine(TEXT.length);
+    setTime(6);
+    window.addEventListener('resize', function () { resize(); draw(); });
+    return;
+  }
+
+  var last = 0, acc = 0, charAcc = 0, elapsed = 0;
+  var CYCLE = TEXT.length * 0.085 + 2.6;   // seconds before the loop restarts
+
+  function frame(now) {
+    if (!last) last = now;
+    var dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+
+    elapsed += dt;
+    acc += dt;
+    while (acc > 0.028) { offset++; acc -= 0.028; }
+
+    charAcc += dt;
+    if (chars < TEXT.length && charAcc > 0.085) {
+      chars += 1;
+      charAcc = 0;
+      setLine(chars);
+    }
+
+    setTime(elapsed);
+
+    if (elapsed > CYCLE) { elapsed = 0; chars = 0; setLine(0); }
+
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  setLine(0);
+  requestAnimationFrame(frame);
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { resize(); draw(); }, 120);
+  });
+})();
+</script>
