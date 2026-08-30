@@ -483,7 +483,7 @@ footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 
   <section>
     <p class="eyebrow">First launch</p>
-    <h2>Four steps, one of them not obvious</h2>
+    <h2>Four steps, one of them Apple makes awkward</h2>
 
     <ol class="steps">
       <li>
@@ -496,17 +496,25 @@ footer a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
       <li>
         <span class="n">02</span>
         <span class="body">
-          <b>Right-click wave, choose <span class="kbd">Open</span>, then <span class="kbd">Open</span> again.</b>
+          <b>The first launch is blocked. Click <span class="kbd">Done</span> &mdash; never &ldquo;Move to Trash&rdquo;.</b>
           <span class="note">
-            Right-click specifically, not a double-click. A double-click shows a
-            warning with no way to continue, and the app looks broken when it isn't.
+            macOS says it &ldquo;could not verify wave is free of malware&rdquo;. That message
+            appears for every app not signed with a paid Apple certificate,
+            whatever the app actually does. Nothing is wrong with the download.
+          </span>
+          <span class="note">
+            Then open <span class="kbd">System Settings</span> &rarr;
+            <span class="kbd">Privacy &amp; Security</span>, scroll down to
+            <b>Security</b>, and click <span class="kbd">Open Anyway</span> next
+            to wave. Confirm with Touch ID or your password, then click
+            <span class="kbd">Open Anyway</span> once more in the dialog that follows.
           </span>
           <span class="flag">
             <p>
-              <strong>macOS will say the developer is unidentified. That is expected.</strong>
-              The app has no paid Apple certificate, so the system plays it safe.
-              Opening it by right-click gives you the button macOS otherwise hides.
-              Once only — after that it launches normally.
+              <strong>Once only.</strong> After that first approval wave opens with a
+              normal double-click, like any other app. On macOS 14 and older there
+              is a shortcut: right-click the app and choose Open. Apple removed
+              that route in macOS 15, so newer systems have to go through Settings.
             </p>
           </span>
         </span>
